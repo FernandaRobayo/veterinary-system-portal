@@ -25,6 +25,20 @@ The preferred low-cost AWS deployment for this frontend is:
 
 In production, the frontend does not require an Nginx container. The generated app is expected to call `/api/...` on the same public domain, with CloudFront forwarding that path to the backend origin.
 
+Recommended production flow:
+
+1. Build the Angular app:
+```bash
+npm run build -- --configuration production
+```
+
+2. Publish the generated `dist/frontend-unab` files to S3.
+
+3. Configure CloudFront to:
+- serve the SPA from the S3 origin
+- forward `/api/*` to the backend origin
+- return `index.html` for SPA routes such as `/dashboard` or `/customers`
+
 The self-signed local TLS validation described below is not the production deployment model for AWS. It is only an isolated local check for ADR-011.
 
 ## Local HTTPS with self-signed certificate
