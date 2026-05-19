@@ -44,3 +44,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Local TLS certificates
+nginx/certs/*.crt
+nginx/certs/*.key
+nginx/certs/*.pem

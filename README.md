@@ -25,6 +25,39 @@ The preferred low-cost AWS deployment for this frontend is:
 
 In production, the frontend does not require an Nginx container. The generated app is expected to call `/api/...` on the same public domain, with CloudFront forwarding that path to the backend origin.
 
+The self-signed local TLS validation described below is not the production deployment model for AWS. It is only an isolated local check for ADR-011.
+
+## Local HTTPS with self-signed certificate
+
+For local validation of ADR-011, the Nginx container can terminate TLS with a self-signed certificate through a dedicated compose override. The base `docker-compose.yml` remains HTTP-only to avoid coupling local `localhost` behavior to future AWS deployment settings.
+
+1. Generate the local certificate:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\generate-local-cert.ps1
+```
+
+2. Make sure the shared Docker network exists:
+```bash
+docker network create veterinary-system-network
+```
+
+3. Start the portal with the local HTTPS override:
+```bash
+docker compose -f docker-compose.yml -f docker-compose.local-https.yml up -d --build
+```
+
+4. Open:
+```text
+https://localhost:3443
+```
+
+The browser will warn that the certificate is self-signed. This setup is only for local or pre-production validation and is not intended for real public deployments.
+
+For the default local HTTP-only mode:
+```bash
+docker compose up -d
+```
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).

@@ -14,6 +14,13 @@ export function resolveApiBaseUrl(): string {
     ? window.location.hostname
     : 'localhost';
   const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1';
+  const isHttps = protocol === 'https:';
+
+  // When the portal is served over local HTTPS, keep API calls relative so
+  // Nginx can proxy them and we avoid mixed-content requests to port 9090.
+  if (isHttps) {
+    return '';
+  }
 
   // In local development and local Docker, the backend is exposed on port 9090.
   // In future static production deployments, the API can stay relative under /api/*.
