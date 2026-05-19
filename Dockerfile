@@ -5,7 +5,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build -- --configuration production
+RUN ./node_modules/@angular/cli/bin/ng build --configuration production
 
 FROM nginx:1.27-alpine
 

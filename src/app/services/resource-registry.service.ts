@@ -372,19 +372,31 @@ export class ResourceRegistryService {
         );
       case 'breeds':
         return this.breedService.findAll().pipe(
-          map((items) => items.map((item) => ({ value: item.id || 0, label: item.speciesName ? `${item.name} (${item.speciesName})` : item.name })))
+          map((items) => items.map((item) => ({
+            value: item.id || 0,
+            label: item.speciesName ? `${item.name} (${item.speciesName})` : item.name
+          })))
         );
       case 'pets':
         return this.petService.findAll().pipe(
-          map((items) => items.map((item) => ({ value: item.id || 0, label: item.customerFullName ? `${item.name} - ${item.customerFullName}` : item.name })))
+          map((items) => items.map((item) => ({
+            value: item.id || 0,
+            label: item.customerFullName ? `${item.name} - ${item.customerFullName}` : item.name
+          })))
         );
       case 'veterinarians':
         return this.veterinarianService.findAll().pipe(
-          map((items) => items.map((item) => ({ value: item.id || 0, label: item.specialty ? `${item.fullName} - ${item.specialty}` : item.fullName })))
+          map((items) => items.map((item) => ({
+            value: item.id || 0,
+            label: item.specialty ? `${item.fullName} - ${item.specialty}` : item.fullName
+          })))
         );
       case 'appointments':
         return this.appointmentService.findAll().pipe(
-          map((items) => items.map((item) => ({ value: item.id || 0, label: `${item.petName || 'Appointment'} - ${this.formatDateTime(item.appointmentDateTime)}` })))
+          map((items) => items.map((item) => ({
+            value: item.id || 0,
+            label: `${item.petName || 'Appointment'} - ${this.formatDateTime(item.appointmentDateTime)}`
+          })))
         );
       case 'medical-records':
         return this.medicalRecordService.findAll().pipe(

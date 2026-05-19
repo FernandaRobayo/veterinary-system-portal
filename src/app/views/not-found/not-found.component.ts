@@ -8,14 +8,13 @@ import { HelperService } from '../../utils/services/helper.service';
 })
 export class NotFoundComponent implements OnInit {
 
-  constructor(public _helperService: HelperService) { }
+  constructor(public helperService: HelperService) { }
 
   ngOnInit(): void {
   }
 
-  regresar() {
-    this._helperService.onClickBack();
-
+  regresar(): void {
+    this.helperService.onClickBack();
   }
 
 }

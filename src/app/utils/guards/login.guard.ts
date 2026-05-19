@@ -11,8 +11,8 @@ export class LoginGuard implements CanActivate {
   constructor(private loginService: LoginService, private helperService: HelperService) {}
 
   canActivate(
-    _route: ActivatedRouteSnapshot,
-    _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.loginService.isAuthenticated()) {
       this.helperService.redirectApp('dashboard');
       return false;

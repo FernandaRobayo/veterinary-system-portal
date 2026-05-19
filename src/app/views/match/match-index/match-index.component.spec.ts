@@ -1,4 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ToastrModule } from 'ngx-toastr';
 
 import { MatchIndexComponent } from './match-index.component';
 
@@ -8,7 +12,9 @@ describe('MatchIndexComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MatchIndexComponent ]
+      imports: [HttpClientTestingModule, RouterTestingModule, ToastrModule.forRoot()],
+      declarations: [ MatchIndexComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });

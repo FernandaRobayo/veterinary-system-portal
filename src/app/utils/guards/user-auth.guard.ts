@@ -12,8 +12,8 @@ export class UserAuthGuard implements CanActivate {
   constructor(private helperService: HelperService, private loginService: LoginService) {}
 
   canActivate(
-    _route: ActivatedRouteSnapshot,
-    _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.loginService.isAuthenticated()) {
       return true;
     }
