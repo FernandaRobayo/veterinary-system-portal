@@ -22,6 +22,18 @@ export class ResourceIndexComponent implements OnInit {
   ngOnInit(): void {
     this.config = this.resourceRegistryService.getConfig(this.route.snapshot.data.resource);
     this.loadItems();
+
+    this.route.data.subscribe((data) => {
+      const nextConfig = this.resourceRegistryService.getConfig(data.resource);
+
+      if (!nextConfig || this.config?.key === nextConfig.key) {
+        return;
+      }
+
+      this.config = nextConfig;
+      this.items = [];
+      this.loadItems();
+    });
   }
 
   loadItems(): void {

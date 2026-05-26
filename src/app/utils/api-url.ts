@@ -25,7 +25,7 @@ export function resolveApiBaseUrl(): string {
   // In local development and local Docker, the backend is exposed on port 9090.
   // In future static production deployments, the API can stay relative under /api/*.
   if (!environment.production || isLocalHost) {
-    return `${protocol}//${hostname}:9090`;
+    return '';
   }
 
   return '';

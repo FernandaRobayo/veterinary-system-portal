@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { HelperService, MessageType } from '../../../utils/services/helper.service';
 import { ResourceConfig, ResourceFieldConfig, ResourceRegistryService, SelectOption } from '../../../services/resource-registry.service';
 
@@ -40,6 +41,36 @@ export class ResourceFormComponent implements OnInit {
     if (this.id) {
       this.loadEntity();
     }
+
+    combineLatest([this.route.data, this.route.paramMap]).subscribe(([data, paramMap]) => {
+      const nextConfig = this.resourceRegistryService.getConfig(data.resource);
+      const nextId = paramMap.get('id');
+
+      if (!nextConfig) {
+        return;
+      }
+
+      const configChanged = this.config?.key !== nextConfig.key;
+      const idChanged = this.id !== nextId;
+
+      if (!configChanged && !idChanged) {
+        return;
+      }
+
+      this.config = nextConfig;
+      this.id = nextId;
+      this.options = {};
+      this.loading = false;
+      this.buildForm();
+      this.loadOptions();
+
+      if (this.id) {
+        this.loadEntity();
+        return;
+      }
+
+      this.form.reset();
+    });
   }
 
   save(): void {

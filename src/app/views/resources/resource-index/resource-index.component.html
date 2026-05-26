@@ -1,6 +1,6 @@
 <app-breadcrumb [title]="config?.label"></app-breadcrumb>
 
-<section class="content">
+<section *ngIf="config" class="content">
   <div class="container">
     <div class="card card-outline card-primary">
       <div class="card-body">
@@ -10,8 +10,8 @@
             <p>{{ config?.description }}</p>
           </div>
 
-          <a class="btn btn-primary" [routerLink]="['/', config?.routeSegment, 'create']">
-            Nuevo {{ config?.singularLabel }}
+          <a class="btn btn-primary" [routerLink]="['/', config.routeSegment, 'create']">
+            Nuevo {{ config.singularLabel }}
           </a>
         </div>
 
@@ -44,7 +44,7 @@
         </div>
 
         <div *ngIf="!loading && !items.length" class="resource-state">
-          No hay registros disponibles para {{ config?.label }}.
+          No hay registros disponibles para {{ config.label }}.
         </div>
       </div>
     </div>

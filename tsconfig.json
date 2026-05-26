@@ -10,11 +10,6 @@
     "target": "es2015",
     "module": "esnext",
     "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "@app/*": ["src/app/*"],
-      "@env/*": ["src/environments/*"]
-    },
     "lib": [
       "es2018",
       "dom"
